@@ -1,0 +1,763 @@
+﻿<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Drilling Command Center v2.0</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@3.9.1/dist/chart.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="./styles/main.css">
+</head>
+<body>
+    <div id="app">
+        <!-- HEADER (barra de título) -->
+        <header class="header">
+            <div class="header-title">
+                <div class="logo">DC</div>
+                <h1>DRILLING COMMAND v2.0</h1>
+            </div>
+
+            <div class="header-top-actions">
+                <!-- Botón: configurar paneles del dashboard -->
+                <button class="nav-btn" id="togglePanelsBtn" type="button" title="Mostrar/ocultar paneles del tablero">
+                    <span class="nav-btn-icon">▦</span>
+                    <span class="nav-btn-label">Paneles</span>
+                </button>
+
+                <!-- Estado en vivo del pozo (a la altura de la búsqueda) -->
+                <div class="status-badge" id="liveStatus">
+                    <div class="status-dot"></div>
+                    <span id="headerStatus">—</span>
+                </div>
+
+                <!-- Picklist de Pozos con búsqueda interna -->
+                <div class="well-picklist" id="wellPicklist">
+                    <button class="picklist-trigger" id="picklistTrigger" type="button">
+                        <span class="picklist-icon">🔍</span>
+                        <span class="picklist-label">Pozo:</span>
+                        <span class="picklist-current" id="picklistCurrent">— Seleccionar —</span>
+                        <span class="picklist-caret">▾</span>
+                    </button>
+                    <div class="picklist-dropdown" id="picklistDropdown">
+                        <div class="picklist-search-wrap">
+                            <input
+                                type="text"
+                                id="picklistSearch"
+                                class="picklist-search"
+                                placeholder="Buscar por id, nombre, ubicación o RIG…"
+                                autocomplete="off"
+                            >
+                        </div>
+                        <div class="picklist-list" id="picklistList">
+                            <!-- generado dinámicamente -->
+                        </div>
+                        <div class="picklist-footer">
+                            <span id="picklistCount">0</span> pozos · click para seleccionar
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Navegación a Próximas Locaciones -->
+                <button class="nav-btn" id="openLocationsBtn" type="button" title="Ver próximas locaciones asignadas">
+                    <span class="nav-btn-icon">🗺️</span>
+                    <span class="nav-btn-label">Próximas Locaciones</span>
+                    <span class="nav-btn-badge" id="locationsBadge">0</span>
+                </button>
+
+                <!-- Navegación a Well Planning -->
+                <button class="nav-btn" id="openPlanningBtn" type="button" title="Planificación del pozo">
+                    <span class="nav-btn-icon">📐</span>
+                    <span class="nav-btn-label">Well Planning</span>
+                </button>
+
+                <!-- Navegación a Modelo de Datos -->
+                <button class="nav-btn" id="openDataModelBtn" type="button" title="Modelo de datos y catálogos">
+                    <span class="nav-btn-icon">🗄️</span>
+                    <span class="nav-btn-label">Modelo de Datos</span>
+                </button>
+            </div>
+        </header>
+
+        <!-- BARRA DE CONTROL: días (izq) · metadata (der) -->
+        <div class="control-bar">
+            <!-- IZQUIERDA: selector de días paginado -->
+            <div class="days-zone">
+                <div class="days-zone-head">
+                    <span class="days-zone-title">📅 Día operativo</span>
+                    <span class="day-current-label" id="dayCurrentLabel">—</span>
+                    <span class="day-window-range" id="dayWindowRange"></span>
+                    <button class="day-play-btn" id="dayPlay" title="Reproducir avance día a día">
+                        <span class="play-icon">▶</span>
+                        <span class="play-label">Play</span>
+                    </button>
+                </div>
+                <div class="days-pager">
+                    <button class="day-nav-btn" id="dayPrev" title="7 días anteriores">◀</button>
+                    <div class="day-buttons" id="dayContainer">
+                        <!-- generado dinámicamente -->
+                    </div>
+                    <button class="day-nav-btn" id="dayNext" title="7 días siguientes">▶</button>
+                </div>
+                <div class="day-summary">
+                    <span class="chip chip-blue"><b id="daySummaryMD">—</b> MD</span>
+                    <span class="chip chip-gray">Plan: <b id="daySummaryPlan">—</b></span>
+                    <span class="chip" id="daySummaryDelta">Δ —</span>
+                    <span class="chip chip-orange">NPT día: <b id="daySummaryNPT">—</b></span>
+                    <span class="chip chip-blue">Costo día: <b id="daySummaryCost">—</b></span>
+                    <span class="chip chip-gray" id="daySummaryDaysAcc">Días acum.: <b>—</b></span>
+                    <span class="chip chip-green" id="daySummaryCostAcc">Costo acum.: <b>—</b></span>
+                </div>
+            </div>
+
+            <!-- DERECHA: metadata del pozo -->
+            <div class="meta-zone">
+                <div class="header-info">
+                    <div class="info-badge">
+                        <span class="label">Operador</span>
+                        <span class="value" id="headerOperator">—</span>
+                    </div>
+                    <div class="info-badge">
+                        <span class="label">RIG</span>
+                        <span class="value" id="headerRig">—</span>
+                    </div>
+                    <div class="info-badge">
+                        <span class="label">Ubicación</span>
+                        <span class="value" id="headerLocation">—</span>
+                    </div>
+                    <div class="info-badge">
+                        <span class="label">MD</span>
+                        <span class="value mono" id="headerMD">—</span>
+                    </div>
+                    <div class="info-badge">
+                        <span class="label">TVD</span>
+                        <span class="value mono" id="headerTVD">—</span>
+                    </div>
+                    <div class="info-badge">
+                        <span class="label">TD plan</span>
+                        <span class="value mono" id="headerTD">—</span>
+                    </div>
+                    <div class="info-badge progress-badge">
+                        <span class="label">Avance</span>
+                        <div class="progress-mini"><div class="progress-mini-fill" id="headerProgressBar"></div></div>
+                        <span class="value mono" id="headerProgressTxt">—</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- MAIN CONTENT -->
+        <div class="content">
+            <!-- DDR TABLE (cols 1-2) -->
+            <div class="panel ddr-panel size-50" data-panel="ddr">
+                <div class="panel-header">
+                    <div class="title">
+                        <svg fill="currentColor" viewBox="0 0 20 20">
+                            <path d="M9 2a1 1 0 000 2h2a1 1 0 100-2H9z"/><path fill-rule="evenodd" d="M4 5a2 2 0 012-2 3 3 0 003 3h2a3 3 0 003-3 2 2 0 012 2v11a2 2 0 01-2 2H6a2 2 0 01-2-2V5zm3 4a1 1 0 000 2h.01a1 1 0 100-2H7zm3 0a1 1 0 000 2h3a1 1 0 100-2h-3zm-3 4a1 1 0 100 2h.01a1 1 0 100-2H7zm3 0a1 1 0 100 2h3a1 1 0 100-2h-3z" clip-rule="evenodd"/>
+                        </svg>
+                        Registro de Operaciones Diarias (DDR)
+                    </div>
+                    <div class="panel-header-actions">
+                        <span class="chip chip-live" id="livePill">
+                            <span class="live-dot"></span> EN VIVO
+                        </span>
+                        <button class="nav-btn" id="toggleEditModeBtn" type="button" title="Modo edición">
+                            <span class="nav-btn-icon">✎</span>
+                            <span class="nav-btn-label">Editar diario</span>
+                        </button>
+                    </div>
+                </div>
+                <div class="panel-header ddr-topbar">
+                    <div class="daily-status-bar">
+                        <div class="daily-status-card">
+                            <span class="label">Hora actual</span>
+                            <strong id="dailyCurrentTime">--:--</strong>
+                        </div>
+                        <div class="daily-status-card">
+                            <span class="label">Registrado</span>
+                            <strong id="dailyRegisteredTime">0.0h</strong>
+                        </div>
+                        <div class="daily-status-card">
+                            <span class="label">Faltan</span>
+                            <strong id="dailyRemainingTime">0.0h</strong>
+                        </div>
+                        <div class="daily-status-card">
+                            <span class="label">Cierre</span>
+                            <strong id="dailyCloseTime">23:59</strong>
+                        </div>
+                    </div>
+                </div>
+                <div class="panel-content scroll-x">
+                    <table class="ddr-table">
+                        <thead id="ddrTableHead">
+                            <!-- generado dinámicamente (vista simple / edición completa) -->
+                        </thead>
+                        <tbody id="ddrTableBody">
+                            <!-- generado dinámicamente -->
+                        </tbody>
+                    </table>
+                </div>
+                <div class="ddr-new-line-bar" id="ddrNewLineBar">
+                    <button class="ddr-new-line-btn" id="addLineBtn" type="button">＋ Nueva línea</button>
+                </div>
+            </div>
+
+            <!-- CHART (col 3) -->
+            <div class="panel chart-panel size-25" data-panel="chart">
+                <div class="panel-header">
+                    <div class="title">
+                        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 12l3-3 3 3 4-4M8 21l4-4 4 4M3 4h18M4 4h16v12a1 1 0 01-1 1H5a1 1 0 01-1-1V4z"/>
+                        </svg>
+                        Días vs. Profundidad
+                    </div>
+                    <div class="panel-header-actions">
+                        <div class="chart-toggle" id="chartToggle">
+                            <button class="chart-toggle-btn active" data-mode="depth" type="button">Profundidad</button>
+                            <button class="chart-toggle-btn" data-mode="cost" type="button">Costo</button>
+                        </div>
+                        <span class="chip chip-gray" id="chartDayChip">Día —</span>
+                    </div>
+                </div>
+                <div class="panel-content chart-content">
+                    <canvas id="daysDepthChart"></canvas>
+                </div>
+            </div>
+
+            <!-- SCHEMATIC (col 4) -->
+            <div class="panel schematic-panel size-25" data-panel="schematic">
+                <div class="panel-header">
+                    <div class="title">
+                        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"/>
+                        </svg>
+                        Wellbore Schematic
+                    </div>
+                </div>
+                <div class="panel-content schematic-content">
+                    <div class="schematic-svg-col">
+                        <svg id="wellboreSvg" viewBox="0 0 100 450" preserveAspectRatio="none">
+                            <!-- inyectado por JS -->
+                        </svg>
+                    </div>
+                    <div class="schematic-labels-col" id="schematicLabels">
+                        <!-- inyectado por JS -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- BHA -->
+            <div class="panel bha-panel size-33" data-panel="bha">
+                <div class="panel-header">
+                    <div class="title">
+                        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"/>
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/>
+                        </svg>
+                        Bottom Hole Assembly (BHA)
+                    </div>
+                </div>
+                <div class="panel-content">
+                    <ul class="bha-list" id="bhaList">
+                        <!-- inyectado por JS -->
+                    </ul>
+                </div>
+            </div>
+
+            <!-- MUD -->
+            <div class="panel mud-panel size-33" data-panel="mud">
+                <div class="panel-header">
+                    <div class="title">
+                        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z"/>
+                        </svg>
+                        Resumen de Lodo
+                    </div>
+                </div>
+                <div class="panel-content">
+                    <div class="mud-grid" id="mudGrid">
+                        <!-- inyectado por JS -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- NPT SUMMARY -->
+            <div class="panel npt-panel size-33" data-panel="npt">
+                <div class="panel-header npt-header">
+                    <div class="title">
+                        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/>
+                        </svg>
+                        Resumen de NPT (Acumulado)
+                    </div>
+                    <div class="panel-header-actions">
+                        <span class="chip chip-red" id="nptTotalChip">— hrs</span>
+                    </div>
+                </div>
+                <div class="panel-content">
+                    <div class="npt-bar" id="nptStackBar"></div>
+                    <ul class="npt-legend" id="nptLegend"></ul>
+                </div>
+            </div>
+
+            <!-- SENSORS (full width) -->
+            <div class="panel sensors-wrap size-100" data-panel="sensors">
+                <div class="panel-header">
+                    <div class="title">
+                        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/>
+                        </svg>
+                        Sensores (Último Evento del Día)
+                    </div>
+                    <div class="panel-header-actions">
+                        <span class="chip chip-gray" id="sensorOpChip">—</span>
+                        <div class="sensor-pager">
+                            <button class="sensor-nav-btn" id="sensorPrev" title="Sensores anteriores">◀</button>
+                            <span class="sensor-page-label" id="sensorPageLabel">—</span>
+                            <button class="sensor-nav-btn" id="sensorNext" title="Más sensores">▶</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="panel-content">
+                    <div class="sensors-panel" id="sensorsContainer">
+                        <!-- inyectado por JS -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- SIDEBAR: configuración de paneles del dashboard -->
+    <div class="panels-backdrop hidden" id="panelsBackdrop"></div>
+    <aside class="panels-sidebar" id="panelsSidebar">
+        <div class="panels-sidebar-head">
+            <div class="panels-sidebar-title">▦ Paneles del tablero</div>
+            <button class="loc-back-btn" id="closePanelsBtn" type="button">Cerrar ✕</button>
+        </div>
+        <p class="panels-sidebar-hint">Mostrá u ocultá paneles y elegí su ancho. El tablero se reordena solo.</p>
+        <div class="panels-list" id="panelsList">
+            <!-- generado dinámicamente -->
+        </div>
+        <button class="btn btn-secondary panels-reset" id="resetPanelsBtn" type="button">Restablecer por defecto</button>
+    </aside>
+
+    <!-- VISTA: PRÓXIMAS LOCACIONES (pantalla completa) -->
+    <div id="locationsView" class="locations-view hidden">
+        <header class="locations-topbar">
+            <button class="loc-back-btn" id="closeLocationsBtn" type="button">
+                <span>◀</span> Volver al Daily Drilling
+            </button>
+            <div class="locations-title">
+                <span class="locations-title-icon">🗺️</span>
+                <div>
+                    <h2>Próximas Locaciones Asignadas</h2>
+                    <p class="locations-subtitle">Estado de preparación: locación, programa, AFE y permisos de ingreso</p>
+                </div>
+            </div>
+            <div class="locations-search-wrap">
+                <span class="loc-search-icon">🔍</span>
+                <input type="text" id="locationsSearch" class="locations-search"
+                       placeholder="Buscar por locación, yacimiento o RIG…" autocomplete="off">
+            </div>
+        </header>
+
+        <div class="locations-stats" id="locationsStats">
+            <!-- inyectado por JS -->
+        </div>
+
+        <div class="locations-timeline-panel">
+            <div class="locations-timeline-title">🗓️ Línea de tiempo de spuds</div>
+            <div class="locations-timeline" id="locationsTimeline">
+                <!-- inyectado por JS -->
+            </div>
+        </div>
+
+        <div class="locations-grid" id="locationsGrid">
+            <!-- inyectado por JS -->
+        </div>
+    </div>
+
+    <!-- VISTA: WELL PLANNING (pantalla completa) -->
+    <div id="wellPlanningView" class="locations-view planning-view hidden">
+        <header class="locations-topbar">
+            <button class="loc-back-btn" id="closePlanningBtn" type="button">
+                <span>◀</span> Volver al Daily Drilling
+            </button>
+            <div class="locations-title">
+                <span class="locations-title-icon">📐</span>
+                <div>
+                    <h2>Well Planning</h2>
+                    <p class="locations-subtitle">Plan operativo por evento, fases, actividades y operaciones normalizadas</p>
+                </div>
+            </div>
+            <button class="nav-btn" id="seedPlanBtn" type="button" title="Cargar una plantilla de ejemplo (Workover)">
+                <span class="nav-btn-icon">📋</span>
+                <span class="nav-btn-label">Modelo Workover</span>
+            </button>
+            <button class="nav-btn planning-icon-btn" id="openCreateWellBtn" type="button" title="Crear un pozo nuevo">
+                <span class="btn-icon">＋</span>
+                <span class="nav-btn-label">Nuevo pozo</span>
+            </button>
+        </header>
+
+        <div class="planning-wrap">
+
+            <!-- 1 · Datos del plan -->
+            <section class="planning-panel">
+                <div class="planning-section-head">
+                    <span class="planning-step-badge">1</span>
+                    <div class="planning-section-text">
+                        <div class="planning-panel-title">Datos del plan</div>
+                        <p class="planning-panel-subtitle">Elegí el pozo y el evento, y definí fechas y responsables del trabajo a planificar.</p>
+                    </div>
+                </div>
+                <div class="planning-form-grid">
+                    <label class="form-field"><span>Pozo</span><select id="planWell"></select></label>
+                    <label class="form-field"><span>Evento</span><select id="planEvent"></select></label>
+                    <label class="form-field planning-field-wide"><span>Objetivo</span><input id="planObjective" type="text" placeholder="Objetivo del trabajo"></label>
+                    <label class="form-field"><span>Fecha inicio</span><input id="planStartDate" type="date"></label>
+                    <label class="form-field"><span>Fecha fin</span><input id="planEndDate" type="date"></label>
+                    <label class="form-field"><span>RIG</span><input id="planRig" type="text"></label>
+                    <label class="form-field"><span>Contratista</span><input id="planContractor" type="text"></label>
+                    <label class="form-field"><span>Supervisor</span><input id="planSupervisor" type="text"></label>
+                    <label class="form-field"><span>Estado</span>
+                        <select id="planStatus">
+                            <option value="BORRADOR">Borrador</option>
+                            <option value="EN_REVISION">En revisión</option>
+                            <option value="APROBADO">Aprobado</option>
+                            <option value="EJECUTADO">Ejecutado</option>
+                            <option value="SUSPENDIDO">Suspendido</option>
+                        </select>
+                    </label>
+                </div>
+            </section>
+
+            <!-- 2 · Diseño de cañerías -->
+            <section class="planning-panel">
+                <div class="planning-section-head">
+                    <span class="planning-step-badge">2</span>
+                    <div class="planning-section-text">
+                        <div class="planning-panel-title">Diseño de cañerías (casing)</div>
+                        <p class="planning-panel-subtitle">Definí las cañerías del pozo (de la más externa a la más interna). Esto alimenta el dibujo del <b>Wellbore Schematic</b>.</p>
+                    </div>
+                </div>
+                <div class="planning-form-grid">
+                    <label class="form-field"><span>Tipo</span>
+                        <select id="casingLabel">
+                            <option>Cañería Guía</option>
+                            <option>Aislación Intermedia</option>
+                            <option>Auxiliar</option>
+                            <option>Producción</option>
+                            <option>Liner</option>
+                        </select>
+                    </label>
+                    <label class="form-field"><span>Diámetro</span><input id="casingSize" type="text" placeholder='Ej: 9-5/8"'></label>
+                    <label class="form-field"><span>Grado</span><input id="casingGrade" type="text" placeholder="Ej: N-80"></label>
+                    <label class="form-field"><span>Peso</span><input id="casingWeight" type="text" placeholder="Ej: 47#"></label>
+                    <label class="form-field"><span>Zapata MD (m)</span><input id="casingShoe" type="number" step="0.1" placeholder="Prof. de zapata"></label>
+                    <label class="form-field"><span>TOC MD (m)</span><input id="casingToc" type="number" step="0.1" placeholder="Tope de cemento"></label>
+                    <label class="form-field"><span>Estado</span>
+                        <select id="casingSet">
+                            <option value="true">Cementada / colocada</option>
+                            <option value="false">Planificada</option>
+                        </select>
+                    </label>
+                </div>
+                <div class="form-actions">
+                    <button class="btn btn-primary" id="addCasingBtn" type="button">+ Agregar cañería</button>
+                    <span class="planning-inline-hint" id="casingWellHint"></span>
+                </div>
+                <div class="planning-table-wrap">
+                    <table class="planning-table">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Tipo</th>
+                                <th>Diámetro</th>
+                                <th>Grado</th>
+                                <th>Peso</th>
+                                <th class="text-right">Zapata MD</th>
+                                <th class="text-right">TOC MD</th>
+                                <th>Estado</th>
+                                <th>Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody id="casingBody">
+                            <!-- generado dinámicamente -->
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <!-- 3 · Programa de punzados -->
+            <section class="planning-panel">
+                <div class="planning-section-head">
+                    <span class="planning-step-badge">3</span>
+                    <div class="planning-section-text">
+                        <div class="planning-panel-title">Programa de punzados</div>
+                        <p class="planning-panel-subtitle">Intervalos a punzar: formación, topes/bases, densidad de tiros y cargas.</p>
+                    </div>
+                </div>
+                <div class="planning-form-grid">
+                    <label class="form-field"><span>Formación</span><input id="punzFormacion" type="text" placeholder="Formación"></label>
+                    <label class="form-field"><span>Método</span><input id="punzMetodo" type="text" placeholder="Ej: WL"></label>
+                    <label class="form-field"><span>Tope (m)</span><input id="punzTope" type="number" step="0.1"></label>
+                    <label class="form-field"><span>Base (m)</span><input id="punzBase" type="number" step="0.1"></label>
+                    <label class="form-field"><span>Densidad tiros (tpp)</span><input id="punzDensidad" type="number" step="1"></label>
+                    <label class="form-field"><span>N° de disparos</span><input id="punzDisparos" type="number" step="1"></label>
+                    <label class="form-field"><span>Peso cargas (gr)</span><input id="punzPeso" type="number" step="1"></label>
+                    <label class="form-field"><span>Ø portacargas</span><input id="punzDiam" type="number" step="0.1"></label>
+                    <label class="form-field"><span>Desfasaje (°)</span><input id="punzDesfasaje" type="number" step="1"></label>
+                </div>
+                <div class="form-actions">
+                    <button class="btn btn-primary" id="addPunzadoBtn" type="button">+ Agregar punzado</button>
+                </div>
+                <div class="planning-table-wrap">
+                    <table class="planning-table">
+                        <thead>
+                            <tr>
+                                <th>Formación</th>
+                                <th>Método</th>
+                                <th class="text-right">Tope</th>
+                                <th class="text-right">Base</th>
+                                <th class="text-right">Espesor</th>
+                                <th class="text-right">Dens. (tpp)</th>
+                                <th class="text-right">N° disparos</th>
+                                <th class="text-right">Peso (gr)</th>
+                                <th class="text-right">Ø porta</th>
+                                <th class="text-right">Desfasaje</th>
+                                <th>Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody id="punzadosBody">
+                            <!-- generado dinámicamente -->
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <!-- 4 · BHA -->
+            <section class="planning-panel">
+                <div class="planning-section-head">
+                    <span class="planning-step-badge">4</span>
+                    <div class="planning-section-text">
+                        <div class="planning-panel-title">BHA · Trépanos, hidráulica y cañerías</div>
+                        <p class="planning-panel-subtitle">Detalle del conjunto de fondo: componentes, medidas, conexiones y pesos.</p>
+                    </div>
+                </div>
+                <div class="planning-form-grid">
+                    <label class="form-field planning-field-wide"><span>Descripción</span><input id="bhaDesc" type="text" placeholder='Ej: Trépano 17 1/2"'></label>
+                    <label class="form-field"><span>Cantidad (Un.)</span><input id="bhaQty" type="number" step="1"></label>
+                    <label class="form-field"><span>m / unidad</span><input id="bhaMxu" type="number" step="0.01"></label>
+                    <label class="form-field"><span>O.D.</span><input id="bhaOD" type="text" placeholder="Diám. ext."></label>
+                    <label class="form-field"><span>I.D.</span><input id="bhaID" type="text" placeholder="Diám. int."></label>
+                    <label class="form-field"><span>PIN</span><input id="bhaPin" type="text" placeholder="Conexión PIN"></label>
+                    <label class="form-field"><span>BOX</span><input id="bhaBox" type="text" placeholder="Conexión BOX"></label>
+                    <label class="form-field"><span>Peso x m (kg/m)</span><input id="bhaKgm" type="number" step="0.01"></label>
+                </div>
+                <div class="form-actions">
+                    <button class="btn btn-primary" id="addBhaBtn" type="button">+ Agregar componente</button>
+                </div>
+                <div class="planning-table-wrap">
+                    <table class="planning-table">
+                        <thead>
+                            <tr>
+                                <th>Descripción</th>
+                                <th class="text-right">Un.</th>
+                                <th class="text-right">m/unidad</th>
+                                <th class="text-right">Long. total</th>
+                                <th>O.D.</th>
+                                <th>I.D.</th>
+                                <th>PIN</th>
+                                <th>BOX</th>
+                                <th class="text-right">Peso x m</th>
+                                <th class="text-right">Peso total (t)</th>
+                                <th>Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody id="bhaBody">
+                            <!-- generado dinámicamente -->
+                        </tbody>
+                    </table>
+                </div>
+                <div class="planning-form-grid">
+                    <label class="form-field"><span>Peso sobre trépano máx (ton)</span><input id="bhaWobMax" type="number" step="0.1"></label>
+                    <label class="form-field"><span>Peso del lodo (grs/lt)</span><input id="bhaMudWeight" type="number" step="1"></label>
+                </div>
+            </section>
+
+            <!-- 5 · Agregar pasos -->
+            <section class="planning-panel">
+                <div class="planning-section-head">
+                    <span class="planning-step-badge">5</span>
+                    <div class="planning-section-text">
+                        <div class="planning-panel-title">Agregar pasos del plan</div>
+                        <p class="planning-panel-subtitle">Cargá cada operación con su fase, tiempo y costo. Los desplegables se filtran en cascada según lo que elijas.</p>
+                    </div>
+                    <div class="planning-top-actions">
+                        <button class="nav-btn" id="clearPlanBtn" type="button">Limpiar plan</button>
+                    </div>
+                </div>
+                <div class="planning-form-grid">
+                    <label class="form-field"><span>Fase</span><select id="stepPhase"></select></label>
+                    <label class="form-field"><span>Actividad</span><select id="stepActivity"></select></label>
+                    <label class="form-field"><span>Operación</span><select id="stepOperation"></select></label>
+                    <label class="form-field"><span>Tipo de tiempo</span><select id="stepTimeType"></select></label>
+                    <label class="form-field"><span>Categoría NPT</span><select id="stepNpt"></select></label>
+                    <label class="form-field"><span>Duración (h)</span><input id="stepDuration" type="number" step="0.1"></label>
+                    <label class="form-field"><span>Costo (US$)</span><input id="stepCost" type="number" step="1000" placeholder="Costo del paso"></label>
+                    <label class="form-field"><span>Desde (m)</span><input id="stepDepthFrom" type="number" step="0.1"></label>
+                    <label class="form-field"><span>Hasta (m)</span><input id="stepDepthTo" type="number" step="0.1"></label>
+                    <label class="form-field"><span>Servicio</span><input id="stepService" type="text"></label>
+                    <label class="form-field planning-field-wide"><span>Comentarios</span><input id="stepComments" type="text" placeholder="Descripción del paso"></label>
+                </div>
+                <div class="form-actions">
+                    <button class="btn btn-primary" id="addPlanStepBtn" type="button">+ Agregar paso</button>
+                </div>
+            </section>
+
+            <!-- 4 · Resumen -->
+            <section class="planning-panel">
+                <div class="planning-section-head">
+                    <span class="planning-step-badge">6</span>
+                    <div class="planning-section-text">
+                        <div class="planning-panel-title">Resumen del plan</div>
+                        <p class="planning-panel-subtitle">Totales de pasos, horas planificadas, RTP, NPT/demoras y costo del plan.</p>
+                    </div>
+                </div>
+                <div class="planning-summary" id="planSummary"></div>
+            </section>
+
+            <!-- 5 · Pasos cargados -->
+            <section class="planning-panel">
+                <div class="planning-section-head">
+                    <span class="planning-step-badge">7</span>
+                    <div class="planning-section-text">
+                        <div class="planning-panel-title">Pasos cargados</div>
+                        <p class="planning-panel-subtitle">Detalle de cada paso del plan, en orden de ejecución.</p>
+                    </div>
+                </div>
+                <div class="planning-table-wrap">
+                    <table class="planning-table steps-table">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Fase</th>
+                                <th>Actividad</th>
+                                <th>Operación</th>
+                                <th class="text-right">Duración</th>
+                                <th class="text-right">Costo</th>
+                                <th class="text-right">Desde</th>
+                                <th class="text-right">Hasta</th>
+                                <th>Tipo</th>
+                                <th>NPT</th>
+                                <th>Descripción</th>
+                                <th>Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody id="planStepsBody">
+                            <!-- generado dinámicamente -->
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+        </div>
+    </div>
+
+    <!-- VISTA: NUEVO POZO (página propia) -->
+    <div id="createWellView" class="locations-view create-well-view hidden">
+        <header class="locations-topbar">
+            <button class="loc-back-btn" id="closeCreateWellBtn" type="button">
+                <span>◀</span> Volver a Well Planning
+            </button>
+            <div class="locations-title">
+                <span class="locations-title-icon create-well-logo">＋</span>
+                <div>
+                    <h2>Nuevo pozo</h2>
+                    <p class="locations-subtitle">Alta del pozo con los campos de la categoría Pozo (MD/TVD, ubicación, etc.)</p>
+                </div>
+            </div>
+            <button class="btn btn-primary" id="savePlanningWellBtn" type="button">Guardar pozo</button>
+        </header>
+
+        <div class="planning-wrap">
+            <section class="planning-panel">
+                <div class="planning-section-head">
+                    <span class="planning-step-badge">1</span>
+                    <div class="planning-section-text">
+                        <div class="planning-panel-title">Datos del pozo</div>
+                        <p class="planning-panel-subtitle">Completá los campos de la categoría Pozo. Los marcados con <b>*</b> son obligatorios. Incluí MD/TVD y ubicación.</p>
+                    </div>
+                </div>
+                <div class="planning-form-grid planning-well-form" id="planningWellForm">
+                    <!-- generado dinámicamente desde el diccionario -->
+                </div>
+            </section>
+
+            <section class="planning-panel">
+                <div class="planning-section-head">
+                    <span class="planning-step-badge">2</span>
+                    <div class="planning-section-text">
+                        <div class="planning-panel-title">Pozos creados localmente</div>
+                        <p class="planning-panel-subtitle">Pozos que cargaste en esta sesión. Hacé click en uno para usarlo en el plan.</p>
+                    </div>
+                </div>
+                <div class="planning-local-wells" id="planningLocalWells">
+                    <!-- generado dinámicamente -->
+                </div>
+            </section>
+        </div>
+    </div>
+
+    <!-- VISTA: MODELO DE DATOS (pantalla completa) -->
+    <div id="dataModelView" class="locations-view data-model-view hidden">
+        <header class="locations-topbar">
+            <button class="loc-back-btn" id="closeDataModelBtn" type="button">
+                <span>◀</span> Volver al Daily Drilling
+            </button>
+            <div class="locations-title">
+                <span class="locations-title-icon">🗄️</span>
+                <div>
+                    <h2>Modelo de Datos</h2>
+                    <p class="locations-subtitle">Diccionario de tablas, catálogos y relaciones del modelo operativo</p>
+                </div>
+            </div>
+            <div class="locations-search-wrap">
+                <span class="loc-search-icon">🔍</span>
+                <input type="text" id="dataModelSearch" class="locations-search"
+                       placeholder="Buscar tabla, columna o valor…" autocomplete="off">
+            </div>
+        </header>
+
+        <div class="data-model-layout">
+            <aside class="data-model-sidebar" id="dataModelTableList">
+                <!-- generado dinámicamente -->
+            </aside>
+            <section class="data-model-main">
+                <div class="data-model-main-head">
+                    <h3 id="dataModelTableTitle">—</h3>
+                    <p id="dataModelTableDescription"></p>
+                    <span class="data-model-meta" id="dataModelTableMeta"></span>
+                </div>
+                <div class="data-model-table-wrap">
+                    <table class="data-model-table">
+                        <thead id="dataModelTableHead"></thead>
+                        <tbody id="dataModelTableBody"></tbody>
+                    </table>
+                </div>
+            </section>
+        </div>
+    </div>
+
+    <!-- SCRIPTS -->
+    <script src="./js/dataManager.js"></script>
+    <script src="./js/wellManager.js"></script>
+    <script src="./js/chartManager.js"></script>
+    <script src="./js/schematicManager.js"></script>
+    <script src="./js/locationsManager.js"></script>
+    <script src="./js/wellPlanningManager.js"></script>
+    <script src="./js/dataModelManager.js"></script>
+    <script src="./js/layoutManager.js"></script>
+    <script src="./js/app.js"></script>
+</body>
+</html>

@@ -1,0 +1,1544 @@
+{
+  "version": "0.3.0",
+  "source_file": "C:\\Users\\bmcle\\Downloads\\Bases.xlsx",
+  "generated_at": "2026-06-04T23:07:05.424Z",
+  "description": "Catalogos importados desde Bases.xlsx con relaciones locales para el mock estatico.",
+  "cat_evento": [
+    {
+      "codigo_evento": "EVT-PERF",
+      "nombre": "PERFORACION",
+      "descripcion": "Construcción inicial del pozo"
+    },
+    {
+      "codigo_evento": "EVT-TERM",
+      "nombre": "TERMINACION",
+      "descripcion": "Terminación del pozo para producción o inyección"
+    },
+    {
+      "codigo_evento": "EVT-WO",
+      "nombre": "INTERVENCION_WORKOVER",
+      "descripcion": "Intervención mayor con equipo"
+    },
+    {
+      "codigo_evento": "EVT-PULL",
+      "nombre": "PULLING",
+      "descripcion": "Intervención liviana con pulling"
+    },
+    {
+      "codigo_evento": "EVT-REP",
+      "nombre": "REPARACION",
+      "descripcion": "Reparación de instalación, casing, tubing o equipamiento"
+    },
+    {
+      "codigo_evento": "EVT-EST",
+      "nombre": "ESTIMULACION",
+      "descripcion": "Acidificación, fractura, limpieza química"
+    },
+    {
+      "codigo_evento": "EVT-ENS",
+      "nombre": "ENSAYO_POZO",
+      "descripcion": "Ensayos, pruebas de admisión, producción o hermeticidad"
+    },
+    {
+      "codigo_evento": "EVT-LOG",
+      "nombre": "PERFIL_CORONA_LOGGING",
+      "descripcion": "Registros eléctricos, perfilajes, PLT, CBL, etc."
+    },
+    {
+      "codigo_evento": "EVT-ABN",
+      "nombre": "ABANDONO",
+      "descripcion": "Abandono temporario o definitivo"
+    },
+    {
+      "codigo_evento": "EVT-DTM",
+      "nombre": "DTM",
+      "descripcion": "Desmontaje, transporte y montaje"
+    },
+    {
+      "codigo_evento": "EVT-MANT",
+      "nombre": "MANTENIMIENTO",
+      "descripcion": "Tareas de mantenimiento preventivo o correctivo"
+    },
+    {
+      "codigo_evento": "EVT-SBY",
+      "nombre": "STANDBY",
+      "descripcion": "Esperas justificadas"
+    },
+    {
+      "codigo_evento": "EVT-SUSP",
+      "nombre": "SUSPENSION",
+      "descripcion": "Pozo suspendido o actividad detenida"
+    },
+    {
+      "codigo_evento": "EVT-EMERG",
+      "nombre": "EMERGENCIA",
+      "descripcion": "Control de pozo, surgencia, incidente operativo"
+    },
+    {
+      "codigo_evento": "EVT-AMB",
+      "nombre": "AMBIENTAL",
+      "descripcion": "Derrames, saneamiento, control ambiental"
+    }
+  ],
+  "cat_fase": [
+    {
+      "codigo_fase": "PH-DTM-DTM",
+      "evento": "EVT-DTM",
+      "fase_desc": "DTM",
+      "orden": 10
+    },
+    {
+      "codigo_fase": "PH-LOC-PREP",
+      "evento": "EVT-DTM",
+      "fase_desc": "ACONDICIONA_REPARA_POZO",
+      "orden": 20
+    },
+    {
+      "codigo_fase": "PH-WO-DESM",
+      "evento": "EVT-WO",
+      "fase_desc": "DESMONTAJE",
+      "orden": 30
+    },
+    {
+      "codigo_fase": "PH-WO-SACAR-INST",
+      "evento": "EVT-WO",
+      "fase_desc": "SACAR_INSTALACION",
+      "orden": 40
+    },
+    {
+      "codigo_fase": "PH-WO-BAJAR-INST",
+      "evento": "EVT-WO",
+      "fase_desc": "BAJAR_INSTALACION",
+      "orden": 50
+    },
+    {
+      "codigo_fase": "PH-WO-PUNZAR",
+      "evento": "EVT-WO",
+      "fase_desc": "PUNZAR",
+      "orden": 60
+    },
+    {
+      "codigo_fase": "PH-WO-ESTIMULAR",
+      "evento": "EVT-WO",
+      "fase_desc": "ESTIMULAR",
+      "orden": 70
+    },
+    {
+      "codigo_fase": "PH-WO-ENSAYAR",
+      "evento": "EVT-WO",
+      "fase_desc": "ENSAYAR",
+      "orden": 80
+    },
+    {
+      "codigo_fase": "PH-WO-CEMENTAR",
+      "evento": "EVT-WO",
+      "fase_desc": "CEMENTAR",
+      "orden": 90
+    },
+    {
+      "codigo_fase": "PH-WO-PESCA",
+      "evento": "EVT-WO",
+      "fase_desc": "PESCA_PROGRAMADA",
+      "orden": 100
+    },
+    {
+      "codigo_fase": "PH-TERM-BAJAR",
+      "evento": "EVT-TERM",
+      "fase_desc": "BAJAR_INSTALACION_FINAL",
+      "orden": 110
+    },
+    {
+      "codigo_fase": "PH-ABN-TAP",
+      "evento": "EVT-ABN",
+      "fase_desc": "TAPONAMIENTO_Y_ABANDONO",
+      "orden": 120
+    },
+    {
+      "codigo_fase": "PH-ABN-CEM",
+      "evento": "EVT-ABN",
+      "fase_desc": "CEMENTACION_ABANDONO",
+      "orden": 130
+    },
+    {
+      "codigo_fase": "PH-ABN-VERIF",
+      "evento": "EVT-ABN",
+      "fase_desc": "VERIFICACION_FINAL",
+      "orden": 140
+    },
+    {
+      "codigo_fase": "PH-MANT-PREV",
+      "evento": "EVT-MANT",
+      "fase_desc": "MANTENIMIENTO_PREVENTIVO",
+      "orden": 150
+    },
+    {
+      "codigo_fase": "PH-MANT-CORR",
+      "evento": "EVT-MANT",
+      "fase_desc": "MANTENIMIENTO_CORRECTIVO",
+      "orden": 160
+    },
+    {
+      "codigo_fase": "",
+      "evento": "",
+      "fase_desc": "Cat_Fase_Perforacion",
+      "orden": ""
+    },
+    {
+      "codigo_fase": "Columna 1",
+      "evento": "Columna 2",
+      "fase_desc": "Columna 3",
+      "orden": "Columna 4"
+    },
+    {
+      "codigo_fase": "codigo_fase",
+      "evento": "evento",
+      "fase_desc": "fase_desc",
+      "orden": "orden"
+    },
+    {
+      "codigo_fase": "PH-PERF-PLAN",
+      "evento": "EVT-PERF",
+      "fase_desc": "PLANIFICACION_PERFORACION",
+      "orden": 10
+    },
+    {
+      "codigo_fase": "PH-PERF-LOC",
+      "evento": "EVT-PERF",
+      "fase_desc": "CONSTRUCCION_ACONDICIONAMIENTO_LOCACION",
+      "orden": 20
+    },
+    {
+      "codigo_fase": "PH-PERF-DTM",
+      "evento": "EVT-PERF",
+      "fase_desc": "DTM_EQUIPO_PERFORADOR",
+      "orden": 30
+    },
+    {
+      "codigo_fase": "PH-PERF-MONTAJE",
+      "evento": "EVT-PERF",
+      "fase_desc": "MONTAJE_EQUIPO_PERFORADOR",
+      "orden": 40
+    },
+    {
+      "codigo_fase": "PH-PERF-RIGUP",
+      "evento": "EVT-PERF",
+      "fase_desc": "RIG_UP",
+      "orden": 50
+    },
+    {
+      "codigo_fase": "PH-PERF-SPUD",
+      "evento": "EVT-PERF",
+      "fase_desc": "INICIO_PERFORACION_SPUD",
+      "orden": 60
+    },
+    {
+      "codigo_fase": "PH-PERF-SUP",
+      "evento": "EVT-PERF",
+      "fase_desc": "PERFORACION_SECCION_SUPERFICIAL",
+      "orden": 70
+    },
+    {
+      "codigo_fase": "PH-PERF-CASING-SUP",
+      "evento": "EVT-PERF",
+      "fase_desc": "BAJADA_CASING_SUPERFICIAL",
+      "orden": 80
+    },
+    {
+      "codigo_fase": "PH-PERF-CEM-SUP",
+      "evento": "EVT-PERF",
+      "fase_desc": "CEMENTACION_CASING_SUPERFICIAL",
+      "orden": 90
+    },
+    {
+      "codigo_fase": "PH-PERF-WOC-SUP",
+      "evento": "EVT-PERF",
+      "fase_desc": "ESPERA_FRAGUE_CEMENTO_SUPERFICIAL",
+      "orden": 100
+    },
+    {
+      "codigo_fase": "PH-PERF-BOP",
+      "evento": "EVT-PERF",
+      "fase_desc": "INSTALACION_PRUEBA_BOP",
+      "orden": 110
+    },
+    {
+      "codigo_fase": "PH-PERF-INT",
+      "evento": "EVT-PERF",
+      "fase_desc": "PERFORACION_SECCION_INTERMEDIA",
+      "orden": 120
+    },
+    {
+      "codigo_fase": "PH-PERF-CASING-INT",
+      "evento": "EVT-PERF",
+      "fase_desc": "BAJADA_CASING_INTERMEDIO",
+      "orden": 130
+    },
+    {
+      "codigo_fase": "PH-PERF-CEM-INT",
+      "evento": "EVT-PERF",
+      "fase_desc": "CEMENTACION_CASING_INTERMEDIO",
+      "orden": 140
+    },
+    {
+      "codigo_fase": "PH-PERF-WOC-INT",
+      "evento": "EVT-PERF",
+      "fase_desc": "ESPERA_FRAGUE_CEMENTO_INTERMEDIO",
+      "orden": 150
+    },
+    {
+      "codigo_fase": "PH-PERF-PROD",
+      "evento": "EVT-PERF",
+      "fase_desc": "PERFORACION_SECCION_PRODUCTIVA",
+      "orden": 160
+    },
+    {
+      "codigo_fase": "PH-PERF-HORIZ",
+      "evento": "EVT-PERF",
+      "fase_desc": "PERFORACION_SECCION_HORIZONTAL",
+      "orden": 170
+    },
+    {
+      "codigo_fase": "PH-PERF-DIR",
+      "evento": "EVT-PERF",
+      "fase_desc": "PERFORACION_DIRECCIONAL",
+      "orden": 180
+    },
+    {
+      "codigo_fase": "PH-PERF-MWD-LWD",
+      "evento": "EVT-PERF",
+      "fase_desc": "MEDICION_DIRECCIONAL_MWD_LWD",
+      "orden": 190
+    },
+    {
+      "codigo_fase": "PH-PERF-CORONA",
+      "evento": "EVT-PERF",
+      "fase_desc": "CORONEO",
+      "orden": 200
+    },
+    {
+      "codigo_fase": "PH-PERF-LOG",
+      "evento": "EVT-PERF",
+      "fase_desc": "PERFILAJES_POZO_ABIERTO",
+      "orden": 210
+    },
+    {
+      "codigo_fase": "PH-PERF-COND",
+      "evento": "EVT-PERF",
+      "fase_desc": "ACONDICIONAMIENTO_POZO",
+      "orden": 220
+    },
+    {
+      "codigo_fase": "PH-PERF-LINER",
+      "evento": "EVT-PERF",
+      "fase_desc": "BAJADA_LINER",
+      "orden": 230
+    },
+    {
+      "codigo_fase": "PH-PERF-CASING-PROD",
+      "evento": "EVT-PERF",
+      "fase_desc": "BAJADA_CASING_PRODUCTIVO",
+      "orden": 240
+    },
+    {
+      "codigo_fase": "PH-PERF-CEM-PROD",
+      "evento": "EVT-PERF",
+      "fase_desc": "CEMENTACION_CASING_PRODUCTIVO",
+      "orden": 250
+    },
+    {
+      "codigo_fase": "PH-PERF-WOC-PROD",
+      "evento": "EVT-PERF",
+      "fase_desc": "ESPERA_FRAGUE_CEMENTO_PRODUCTIVO",
+      "orden": 260
+    },
+    {
+      "codigo_fase": "PH-PERF-PRUEBAS",
+      "evento": "EVT-PERF",
+      "fase_desc": "PRUEBAS_INTEGRIDAD_PRESION",
+      "orden": 270
+    },
+    {
+      "codigo_fase": "PH-PERF-CABEZA",
+      "evento": "EVT-PERF",
+      "fase_desc": "INSTALACION_CABEZA_POZO",
+      "orden": 280
+    },
+    {
+      "codigo_fase": "PH-PERF-RIGDOWN",
+      "evento": "EVT-PERF",
+      "fase_desc": "RIG_DOWN",
+      "orden": 290
+    },
+    {
+      "codigo_fase": "PH-PERF-DESMONTAJE",
+      "evento": "EVT-PERF",
+      "fase_desc": "DESMONTAJE_EQUIPO",
+      "orden": 300
+    },
+    {
+      "codigo_fase": "PH-PERF-LIBERACION",
+      "evento": "EVT-PERF",
+      "fase_desc": "LIBERACION_POZO",
+      "orden": 310
+    },
+    {
+      "codigo_fase": "PH-PERF-SUSP",
+      "evento": "EVT-PERF",
+      "fase_desc": "SUSPENSION_TEMPORARIA",
+      "orden": 320
+    }
+  ],
+  "cat_estado": [
+    {
+      "codigo_estado": "ST-PLAN",
+      "estado_pozo": "PLANIFICADO",
+      "descripcion": "Trabajo previsto, todavía no iniciado"
+    },
+    {
+      "codigo_estado": "ST-LOC-PREP",
+      "estado_pozo": "LOCACION_EN_PREPARACION",
+      "descripcion": "Locación en acondicionamiento"
+    },
+    {
+      "codigo_estado": "ST-EQ-MOV",
+      "estado_pozo": "EQUIPO_EN_MOVIMIENTO",
+      "descripcion": "Equipo en DTM"
+    },
+    {
+      "codigo_estado": "ST-EQ-MONT",
+      "estado_pozo": "EQUIPO_MONTANDO",
+      "descripcion": "Equipo montando en locación"
+    },
+    {
+      "codigo_estado": "ST-EN-OPERACION",
+      "estado_pozo": "EN_OPERACION",
+      "descripcion": "Trabajo activo"
+    },
+    {
+      "codigo_estado": "ST-EN-ESPERA",
+      "estado_pozo": "EN_ESPERA",
+      "descripcion": "Standby operativo o externo"
+    },
+    {
+      "codigo_estado": "ST-SUSP",
+      "estado_pozo": "SUSPENDIDO",
+      "descripcion": "Operación detenida"
+    },
+    {
+      "codigo_estado": "ST-CONTROL",
+      "estado_pozo": "EN_CONTROL_POZO",
+      "descripcion": "Situación de control o seguridad"
+    },
+    {
+      "codigo_estado": "ST-ENSAYO",
+      "estado_pozo": "EN_ENSAYO",
+      "descripcion": "Pozo bajo prueba"
+    },
+    {
+      "codigo_estado": "ST-COMPLETADO",
+      "estado_pozo": "COMPLETADO",
+      "descripcion": "Trabajo terminado técnicamente"
+    },
+    {
+      "codigo_estado": "ST-LIBERADO",
+      "estado_pozo": "LIBERADO",
+      "descripcion": "Pozo liberado por operaciones"
+    },
+    {
+      "codigo_estado": "ST-PROD",
+      "estado_pozo": "EN_PRODUCCION",
+      "descripcion": "Pozo produciendo"
+    },
+    {
+      "codigo_estado": "ST-INY",
+      "estado_pozo": "EN_INYECCION",
+      "descripcion": "Pozo inyector activo"
+    },
+    {
+      "codigo_estado": "ST-ABN-TEMP",
+      "estado_pozo": "ABANDONO_TEMPORARIO",
+      "descripcion": "Abandono temporario"
+    },
+    {
+      "codigo_estado": "ST-ABN-DEF",
+      "estado_pozo": "ABANDONO_DEFINITIVO",
+      "descripcion": "Abandono definitivo"
+    },
+    {
+      "codigo_estado": "ST-CERRADO",
+      "estado_pozo": "CERRADO",
+      "descripcion": "Cerrado administrativamente"
+    }
+  ],
+  "cat_tipo_tiempo": [
+    {
+      "codigo_tiempo": "TC-OP",
+      "nombre": "OPERATIVO",
+      "cuenta_rtp": 1,
+      "cuenta_npt": 0,
+      "descripcion": "Tiempo normal de operación"
+    },
+    {
+      "codigo_tiempo": "TC-SBY",
+      "nombre": "STANDBY",
+      "cuenta_rtp": 0,
+      "cuenta_npt": 0,
+      "descripcion": "Equipo en espera justificada"
+    },
+    {
+      "codigo_tiempo": "TC-DTM",
+      "nombre": "DTM",
+      "cuenta_rtp": 1,
+      "cuenta_npt": 0,
+      "descripcion": "Desmontaje, transporte y montaje"
+    },
+    {
+      "codigo_tiempo": "TC-NPT",
+      "nombre": "NO_PRODUCTIVO",
+      "cuenta_rtp": 0,
+      "cuenta_npt": 1,
+      "descripcion": "Tiempo perdido atribuible"
+    },
+    {
+      "codigo_tiempo": "TC-WTH",
+      "nombre": "CLIMA",
+      "cuenta_rtp": 0,
+      "cuenta_npt": 1,
+      "descripcion": "Demora por clima"
+    },
+    {
+      "codigo_tiempo": "TC-MNT",
+      "nombre": "MANTENIMIENTO",
+      "cuenta_rtp": 0,
+      "cuenta_npt": 1,
+      "descripcion": "Reparación o mantenimiento del equipo"
+    },
+    {
+      "codigo_tiempo": "TC-LOG",
+      "nombre": "LOGISTICA",
+      "cuenta_rtp": 0,
+      "cuenta_npt": 1,
+      "descripcion": "Espera de materiales, transporte, cuadrilla"
+    },
+    {
+      "codigo_tiempo": "TC-SEG",
+      "nombre": "SEGURIDAD",
+      "cuenta_rtp": 0,
+      "cuenta_npt": 1,
+      "descripcion": "Parada por seguridad"
+    },
+    {
+      "codigo_tiempo": "TC-AMB",
+      "nombre": "AMBIENTAL",
+      "cuenta_rtp": 0,
+      "cuenta_npt": 1,
+      "descripcion": "Parada por condición ambiental"
+    },
+    {
+      "codigo_tiempo": "TC-POZO",
+      "nombre": "CONDICION_POZO",
+      "cuenta_rtp": 0,
+      "cuenta_npt": 1,
+      "descripcion": "Problema propio del pozo"
+    },
+    {
+      "codigo_tiempo": "TC-CLI",
+      "nombre": "CLIENTE",
+      "cuenta_rtp": 0,
+      "cuenta_npt": 1,
+      "descripcion": "Espera por decisión del cliente/operadora"
+    }
+  ],
+  "cat_actividad": [
+    {
+      "codigo_actividad": "ACT-DTM",
+      "actividad": "DTM",
+      "grupo": "MOVIMIENTO_EQUIPO"
+    },
+    {
+      "codigo_actividad": "ACT-TAP-ABN",
+      "actividad": "TAPONAMIENTO_Y_ABANDONO",
+      "grupo": "ABANDONO"
+    },
+    {
+      "codigo_actividad": "ACT-ACOND-SIDETRACK",
+      "actividad": "ACONDICIONA_SIDETRACK",
+      "grupo": "PERFORACION"
+    },
+    {
+      "codigo_actividad": "ACT-PUNZAR",
+      "actividad": "PUNZAR",
+      "grupo": "TERMINACION_WORKOVER"
+    },
+    {
+      "codigo_actividad": "ACT-ESTIMULAR",
+      "actividad": "ESTIMULAR",
+      "grupo": "ESTIMULACION"
+    },
+    {
+      "codigo_actividad": "ACT-BAJAR-INST",
+      "actividad": "BAJAR_INSTALACION",
+      "grupo": "INSTALACION"
+    },
+    {
+      "codigo_actividad": "ACT-SACAR-INST",
+      "actividad": "SACAR_INSTALACION",
+      "grupo": "INSTALACION"
+    },
+    {
+      "codigo_actividad": "ACT-LOGGING",
+      "actividad": "LOGGING_ENTUBADO",
+      "grupo": "REGISTROS"
+    },
+    {
+      "codigo_actividad": "ACT-ENSAYO",
+      "actividad": "ENSAYOS_DE_POZO",
+      "grupo": "ENSAYOS"
+    },
+    {
+      "codigo_actividad": "ACT-CEMENTAR",
+      "actividad": "CEMENTACION_SECUNDARIA",
+      "grupo": "CEMENTACION"
+    },
+    {
+      "codigo_actividad": "ACT-REPARA-CASING",
+      "actividad": "REPARA_CASING",
+      "grupo": "REPARACION"
+    },
+    {
+      "codigo_actividad": "ACT-CALIBRA",
+      "actividad": "CALIBRA_POZO",
+      "grupo": "CONTROL_POZO"
+    },
+    {
+      "codigo_actividad": "ACT-AHOGA",
+      "actividad": "AHOGA_CONTROLA_POZO",
+      "grupo": "CONTROL_POZO"
+    },
+    {
+      "codigo_actividad": "ACT-PREFRAC",
+      "actividad": "PREFRAC_SOLO_PP",
+      "grupo": "ESTIMULACION"
+    },
+    {
+      "codigo_actividad": "ACT-POSTFRAC",
+      "actividad": "POSTFRAC_SOLO_PP",
+      "grupo": "ESTIMULACION"
+    },
+    {
+      "codigo_actividad": "ACT-PESCA",
+      "actividad": "PESCA_PROGRAMADA",
+      "grupo": "PESCA"
+    },
+    {
+      "codigo_actividad": "ACT-DRILL",
+      "actividad": "PERFORAR",
+      "grupo": "PERFORACION"
+    },
+    {
+      "codigo_actividad": "ACT-CIRCULAR",
+      "actividad": "CIRCULAR_POZO",
+      "grupo": "CONTROL_POZO"
+    },
+    {
+      "codigo_actividad": "ACT-LIMPIEZA",
+      "actividad": "LIMPIEZA_POZO",
+      "grupo": "CONTROL_POZO"
+    },
+    {
+      "codigo_actividad": "ACT-MOLER",
+      "actividad": "MOLER_TAPON_CEMENTO",
+      "grupo": "CEMENTACION"
+    },
+    {
+      "codigo_actividad": "ACT-FRESAR",
+      "actividad": "FRESAR",
+      "grupo": "PESCA_REPARACION"
+    },
+    {
+      "codigo_actividad": "ACT-BAJAR-CASING",
+      "actividad": "BAJAR_CASING",
+      "grupo": "PERFORACION_TERMINACION"
+    },
+    {
+      "codigo_actividad": "ACT-BAJAR-TUBING",
+      "actividad": "BAJAR_TUBING",
+      "grupo": "TERMINACION"
+    },
+    {
+      "codigo_actividad": "ACT-SACAR-TUBING",
+      "actividad": "SACAR_TUBING",
+      "grupo": "WORKOVER"
+    },
+    {
+      "codigo_actividad": "ACT-BAJAR-BOMBA",
+      "actividad": "BAJAR_BOMBA",
+      "grupo": "PRODUCCION"
+    },
+    {
+      "codigo_actividad": "ACT-SACAR-BOMBA",
+      "actividad": "SACAR_BOMBA",
+      "grupo": "PRODUCCION"
+    },
+    {
+      "codigo_actividad": "ACT-INSPECCION",
+      "actividad": "INSPECCION_EQUIPO_POZO",
+      "grupo": "CONTROL"
+    },
+    {
+      "codigo_actividad": "ACT-HERMETICIDAD",
+      "actividad": "PRUEBA_HERMETICIDAD",
+      "grupo": "ENSAYOS"
+    },
+    {
+      "codigo_actividad": "ACT-ADMISION",
+      "actividad": "PRUEBA_ADMISION",
+      "grupo": "ENSAYOS"
+    },
+    {
+      "codigo_actividad": "ACT-SUPERFICIE",
+      "actividad": "TRABAJOS_DE_SUPERFICIE",
+      "grupo": "SUPERFICIE"
+    },
+    {
+      "codigo_actividad": "ACT-MANT-PREV",
+      "actividad": "MANTENIMIENTO_PREVENTIVO",
+      "grupo": "MANTENIMIENTO"
+    },
+    {
+      "codigo_actividad": "ACT-MANT-CORR",
+      "actividad": "MANTENIMIENTO_CORRECTIVO",
+      "grupo": "MANTENIMIENTO"
+    },
+    {
+      "codigo_actividad": "ACT-SEGURIDAD",
+      "actividad": "REUNION_SEGURIDAD_COORDINAR_TAREAS",
+      "grupo": "SEGURIDAD"
+    },
+    {
+      "codigo_actividad": "ACT-LECTURA",
+      "actividad": "LECTURA_DE_ALERTAS",
+      "grupo": "CONTROL"
+    }
+  ],
+  "cat_operacion": [
+    {
+      "codigo_operacion": "OP-VIAJE",
+      "operacion": "VIAJE",
+      "tiempo_default": "TC-OP"
+    },
+    {
+      "codigo_operacion": "OP-ENSAYA",
+      "operacion": "ENSAYA",
+      "tiempo_default": "TC-OP"
+    },
+    {
+      "codigo_operacion": "OP-PRUEBA-ADM-CIRC",
+      "operacion": "PRUEBA_ADMISION_CIRCULACION",
+      "tiempo_default": "TC-OP"
+    },
+    {
+      "codigo_operacion": "OP-CONTROL-POZO",
+      "operacion": "CONTROL_DE_POZO",
+      "tiempo_default": "TC-OP"
+    },
+    {
+      "codigo_operacion": "OP-REUNION-SEG",
+      "operacion": "REUNION_SEGURIDAD_COORDINAR_TAREAS",
+      "tiempo_default": "TC-SBY"
+    },
+    {
+      "codigo_operacion": "OP-PRUEBA-HERM",
+      "operacion": "PRUEBA_HERMETICIDAD",
+      "tiempo_default": "TC-OP"
+    },
+    {
+      "codigo_operacion": "OP-MIDE-OBSERVA",
+      "operacion": "MIDE_OBSERVA",
+      "tiempo_default": "TC-OP"
+    },
+    {
+      "codigo_operacion": "OP-FLUIDOS",
+      "operacion": "FLUIDOS",
+      "tiempo_default": "TC-SBY"
+    },
+    {
+      "codigo_operacion": "OP-ARMA-BHA-HTA",
+      "operacion": "ARMA_BHA_HTA",
+      "tiempo_default": "TC-OP"
+    },
+    {
+      "codigo_operacion": "OP-DESARMA-BHA-HTA",
+      "operacion": "DESARMA_BHA_HTA",
+      "tiempo_default": "TC-OP"
+    },
+    {
+      "codigo_operacion": "OP-MANIOBRA-BHA-HTA",
+      "operacion": "MANIOBRA_BHA_HTA",
+      "tiempo_default": "TC-OP"
+    },
+    {
+      "codigo_operacion": "OP-FIJA-HTA",
+      "operacion": "FIJA_HTA",
+      "tiempo_default": "TC-OP"
+    },
+    {
+      "codigo_operacion": "OP-LIBRA-HTA",
+      "operacion": "LIBRA_HTA",
+      "tiempo_default": "TC-OP"
+    },
+    {
+      "codigo_operacion": "OP-BAJA-SACA-BHA-HTA",
+      "operacion": "BAJA_SACA_BHA_HTA",
+      "tiempo_default": "TC-OP"
+    },
+    {
+      "codigo_operacion": "OP-ARMA-BP",
+      "operacion": "ARMA_BP",
+      "tiempo_default": "TC-OP"
+    },
+    {
+      "codigo_operacion": "OP-DESARMA-BP",
+      "operacion": "DESARMA_BP",
+      "tiempo_default": "TC-OP"
+    },
+    {
+      "codigo_operacion": "OP-ACOND-MIDE-INSP-SUP",
+      "operacion": "ACONDICIONA_MIDE_INSPECCIONA_EN_SUPERFICIE",
+      "tiempo_default": "TC-SBY"
+    },
+    {
+      "codigo_operacion": "OP-BOMB-INY-CIRC-DESP",
+      "operacion": "BOMBEA_INYECTA_CIRCULA_DESPLAZA",
+      "tiempo_default": "TC-OP"
+    },
+    {
+      "codigo_operacion": "OP-CEMENTA",
+      "operacion": "CEMENTA",
+      "tiempo_default": "TC-SBY"
+    },
+    {
+      "codigo_operacion": "OP-ESTIMULA",
+      "operacion": "ESTIMULA",
+      "tiempo_default": "TC-SBY"
+    },
+    {
+      "codigo_operacion": "OP-CABLE",
+      "operacion": "OP_CABLE",
+      "tiempo_default": "TC-SBY"
+    },
+    {
+      "codigo_operacion": "OP-PUNZA-NO-WL",
+      "operacion": "PUNZA_NO_WL",
+      "tiempo_default": "TC-OP"
+    },
+    {
+      "codigo_operacion": "OP-ALAMBRE",
+      "operacion": "OP_ALAMBRE",
+      "tiempo_default": "TC-SBY"
+    },
+    {
+      "codigo_operacion": "OP-COILED-TUBING",
+      "operacion": "OP_COILED_TUBING",
+      "tiempo_default": "TC-SBY"
+    },
+    {
+      "codigo_operacion": "OP-HOT-OIL-VAPOR",
+      "operacion": "OP_HOT_OIL_EQUIPO_VAPOR",
+      "tiempo_default": "TC-OP"
+    },
+    {
+      "codigo_operacion": "OP-EQ-PARADO",
+      "operacion": "EQ_PARADO",
+      "tiempo_default": "TC-SBY"
+    },
+    {
+      "codigo_operacion": "OP-TRANSPORTA",
+      "operacion": "TRANSPORTA",
+      "tiempo_default": "TC-DTM"
+    },
+    {
+      "codigo_operacion": "OP-MONTA",
+      "operacion": "MONTA",
+      "tiempo_default": "TC-DTM"
+    },
+    {
+      "codigo_operacion": "OP-DESMONTA",
+      "operacion": "DESMONTA",
+      "tiempo_default": "TC-DTM"
+    },
+    {
+      "codigo_operacion": "OP-TRAB-SUP",
+      "operacion": "TRABAJOS_DE_SUPERFICIE",
+      "tiempo_default": "TC-OP"
+    },
+    {
+      "codigo_operacion": "OP-MANT-PREV",
+      "operacion": "MANTENIMIENTO_PREVENTIVO",
+      "tiempo_default": "TC-SBY"
+    },
+    {
+      "codigo_operacion": "OP-BAJA-CSG-TBG-VB",
+      "operacion": "BAJA_CSG_TBG_VB",
+      "tiempo_default": "TC-OP"
+    },
+    {
+      "codigo_operacion": "OP-BAJA-NIVEL-PIST",
+      "operacion": "BAJA_NIVEL_POR_PISTONEO",
+      "tiempo_default": "TC-OP"
+    },
+    {
+      "codigo_operacion": "OP-ROTA",
+      "operacion": "ROTA",
+      "tiempo_default": "TC-OP"
+    },
+    {
+      "codigo_operacion": "OP-SACA-CSG-TBG-VB",
+      "operacion": "SACA_CSG_TBG_VB",
+      "tiempo_default": "TC-OP"
+    },
+    {
+      "codigo_operacion": "OP-ACOND-LOCACION",
+      "operacion": "ACONDICIONA_LOCACION",
+      "tiempo_default": "TC-SBY"
+    },
+    {
+      "codigo_operacion": "OP-CALIBRA",
+      "operacion": "CALIBRA",
+      "tiempo_default": "TC-OP"
+    },
+    {
+      "codigo_operacion": "OP-LECTURA-ALERTAS",
+      "operacion": "LECTURA_DE_ALERTAS",
+      "tiempo_default": "TC-SBY"
+    }
+  ],
+  "cat_npt": [
+    {
+      "codigo_npt": "NPT-EQ",
+      "categoria": "EQUIPO",
+      "ejemplo": "Falla hidráulica, malacate, bomba"
+    },
+    {
+      "codigo_npt": "NPT-POZO",
+      "categoria": "CONDICION_POZO",
+      "ejemplo": "Pega, pérdida, kick, arena"
+    },
+    {
+      "codigo_npt": "NPT-LOG",
+      "categoria": "LOGISTICA",
+      "ejemplo": "Falta de materiales, transporte"
+    },
+    {
+      "codigo_npt": "NPT-CLIMA",
+      "categoria": "CLIMA",
+      "ejemplo": "Viento, lluvia, nieve"
+    },
+    {
+      "codigo_npt": "NPT-HSE",
+      "categoria": "SEGURIDAD",
+      "ejemplo": "Parada por condición insegura"
+    },
+    {
+      "codigo_npt": "NPT-AMB",
+      "categoria": "AMBIENTAL",
+      "ejemplo": "Derrame, contención"
+    },
+    {
+      "codigo_npt": "NPT-TERCERO",
+      "categoria": "TERCEROS",
+      "ejemplo": "Espera de wireline, cementadora, CT"
+    },
+    {
+      "codigo_npt": "NPT-CLI",
+      "categoria": "CLIENTE_OPERADORA",
+      "ejemplo": "Espera de decisión/aprobación"
+    },
+    {
+      "codigo_npt": "NPT-PERMISO",
+      "categoria": "PERMISOS",
+      "ejemplo": "Falta de permiso de trabajo"
+    },
+    {
+      "codigo_npt": "NPT-PROG",
+      "categoria": "PROGRAMA",
+      "ejemplo": "Cambio de programa o rediseño"
+    }
+  ],
+  "rel_fase_actividad": [
+    {
+      "fase": "PH-DTM-DTM",
+      "actividad": "ACT-DTM"
+    },
+    {
+      "fase": "PH-WO-DESM",
+      "actividad": "ACT-DTM"
+    },
+    {
+      "fase": "PH-WO-SACAR-INST",
+      "actividad": "ACT-SACAR-INST"
+    },
+    {
+      "fase": "PH-WO-SACAR-INST",
+      "actividad": "ACT-CIRCULAR"
+    },
+    {
+      "fase": "PH-WO-BAJAR-INST",
+      "actividad": "ACT-BAJAR-INST"
+    },
+    {
+      "fase": "PH-WO-PUNZAR",
+      "actividad": "ACT-PUNZAR"
+    },
+    {
+      "fase": "PH-WO-PUNZAR",
+      "actividad": "ACT-ENSAYO"
+    },
+    {
+      "fase": "PH-WO-ESTIMULAR",
+      "actividad": "ACT-ESTIMULAR"
+    },
+    {
+      "fase": "PH-WO-ENSAYAR",
+      "actividad": "ACT-ENSAYO"
+    },
+    {
+      "fase": "PH-WO-CEMENTAR",
+      "actividad": "ACT-CEMENTAR"
+    },
+    {
+      "fase": "PH-PERF-SUP",
+      "actividad": "ACT-DRILL"
+    },
+    {
+      "fase": "PH-PERF-SUP",
+      "actividad": "ACT-CIRCULAR"
+    },
+    {
+      "fase": "PH-PERF-INT",
+      "actividad": "ACT-DRILL"
+    },
+    {
+      "fase": "PH-PERF-INT",
+      "actividad": "ACT-CIRCULAR"
+    },
+    {
+      "fase": "PH-PERF-INT",
+      "actividad": "ACT-BAJAR-CASING"
+    },
+    {
+      "fase": "PH-PERF-DIR",
+      "actividad": "ACT-DRILL"
+    },
+    {
+      "fase": "PH-PERF-LOG",
+      "actividad": "ACT-LOGGING"
+    },
+    {
+      "fase": "PH-PERF-CASING-INT",
+      "actividad": "ACT-BAJAR-CASING"
+    },
+    {
+      "fase": "PH-PERF-CEM-INT",
+      "actividad": "ACT-CEMENTAR"
+    },
+    {
+      "fase": "PH-ABN-TAP",
+      "actividad": "ACT-TAP-ABN"
+    },
+    {
+      "fase": "PH-MANT-PREV",
+      "actividad": "ACT-MANT-PREV"
+    },
+    {
+      "fase": "PH-MANT-CORR",
+      "actividad": "ACT-MANT-CORR"
+    },
+    {
+      "fase": "PH-LOC-PREP",
+      "actividad": "ACT-SUPERFICIE"
+    },
+    {
+      "fase": "PH-WO-SACAR-INST",
+      "actividad": "ACT-SACAR-TUBING"
+    },
+    {
+      "fase": "PH-WO-SACAR-INST",
+      "actividad": "ACT-SACAR-BOMBA"
+    },
+    {
+      "fase": "PH-WO-BAJAR-INST",
+      "actividad": "ACT-BAJAR-TUBING"
+    },
+    {
+      "fase": "PH-WO-BAJAR-INST",
+      "actividad": "ACT-BAJAR-BOMBA"
+    },
+    {
+      "fase": "PH-WO-BAJAR-INST",
+      "actividad": "ACT-BAJAR-CASING"
+    },
+    {
+      "fase": "PH-WO-ENSAYAR",
+      "actividad": "ACT-HERMETICIDAD"
+    },
+    {
+      "fase": "PH-WO-ENSAYAR",
+      "actividad": "ACT-ADMISION"
+    },
+    {
+      "fase": "PH-WO-PESCA",
+      "actividad": "ACT-PESCA"
+    },
+    {
+      "fase": "PH-TERM-BAJAR",
+      "actividad": "ACT-BAJAR-INST"
+    },
+    {
+      "fase": "PH-TERM-BAJAR",
+      "actividad": "ACT-BAJAR-TUBING"
+    },
+    {
+      "fase": "PH-TERM-BAJAR",
+      "actividad": "ACT-BAJAR-BOMBA"
+    },
+    {
+      "fase": "PH-TERM-BAJAR",
+      "actividad": "ACT-BAJAR-CASING"
+    },
+    {
+      "fase": "PH-ABN-CEM",
+      "actividad": "ACT-CEMENTAR"
+    },
+    {
+      "fase": "PH-ABN-CEM",
+      "actividad": "ACT-TAP-ABN"
+    },
+    {
+      "fase": "PH-MANT-PREV",
+      "actividad": "ACT-MANT-CORR"
+    },
+    {
+      "fase": "PH-MANT-CORR",
+      "actividad": "ACT-MANT-PREV"
+    },
+    {
+      "fase": "PH-PERF-PLAN",
+      "actividad": "ACT-DRILL"
+    },
+    {
+      "fase": "PH-PERF-PLAN",
+      "actividad": "ACT-CIRCULAR"
+    },
+    {
+      "fase": "PH-PERF-PLAN",
+      "actividad": "ACT-LIMPIEZA"
+    },
+    {
+      "fase": "PH-PERF-LOC",
+      "actividad": "ACT-SUPERFICIE"
+    },
+    {
+      "fase": "PH-PERF-DTM",
+      "actividad": "ACT-DTM"
+    },
+    {
+      "fase": "PH-PERF-DTM",
+      "actividad": "ACT-DRILL"
+    },
+    {
+      "fase": "PH-PERF-DTM",
+      "actividad": "ACT-CIRCULAR"
+    },
+    {
+      "fase": "PH-PERF-DTM",
+      "actividad": "ACT-LIMPIEZA"
+    },
+    {
+      "fase": "PH-PERF-MONTAJE",
+      "actividad": "ACT-DTM"
+    },
+    {
+      "fase": "PH-PERF-MONTAJE",
+      "actividad": "ACT-DRILL"
+    },
+    {
+      "fase": "PH-PERF-MONTAJE",
+      "actividad": "ACT-CIRCULAR"
+    },
+    {
+      "fase": "PH-PERF-MONTAJE",
+      "actividad": "ACT-LIMPIEZA"
+    },
+    {
+      "fase": "PH-PERF-RIGUP",
+      "actividad": "ACT-DTM"
+    },
+    {
+      "fase": "PH-PERF-SPUD",
+      "actividad": "ACT-DRILL"
+    },
+    {
+      "fase": "PH-PERF-SPUD",
+      "actividad": "ACT-CIRCULAR"
+    },
+    {
+      "fase": "PH-PERF-SPUD",
+      "actividad": "ACT-LIMPIEZA"
+    },
+    {
+      "fase": "PH-PERF-SUP",
+      "actividad": "ACT-LIMPIEZA"
+    },
+    {
+      "fase": "PH-PERF-CASING-SUP",
+      "actividad": "ACT-BAJAR-CASING"
+    },
+    {
+      "fase": "PH-PERF-CEM-SUP",
+      "actividad": "ACT-CEMENTAR"
+    },
+    {
+      "fase": "PH-PERF-CEM-SUP",
+      "actividad": "ACT-BAJAR-CASING"
+    },
+    {
+      "fase": "PH-PERF-WOC-SUP",
+      "actividad": "ACT-CEMENTAR"
+    },
+    {
+      "fase": "PH-PERF-INT",
+      "actividad": "ACT-LIMPIEZA"
+    },
+    {
+      "fase": "PH-PERF-CEM-INT",
+      "actividad": "ACT-BAJAR-CASING"
+    },
+    {
+      "fase": "PH-PERF-WOC-INT",
+      "actividad": "ACT-CEMENTAR"
+    },
+    {
+      "fase": "PH-PERF-PROD",
+      "actividad": "ACT-DRILL"
+    },
+    {
+      "fase": "PH-PERF-PROD",
+      "actividad": "ACT-CIRCULAR"
+    },
+    {
+      "fase": "PH-PERF-PROD",
+      "actividad": "ACT-LIMPIEZA"
+    },
+    {
+      "fase": "PH-PERF-HORIZ",
+      "actividad": "ACT-DRILL"
+    },
+    {
+      "fase": "PH-PERF-HORIZ",
+      "actividad": "ACT-CIRCULAR"
+    },
+    {
+      "fase": "PH-PERF-HORIZ",
+      "actividad": "ACT-LIMPIEZA"
+    },
+    {
+      "fase": "PH-PERF-DIR",
+      "actividad": "ACT-CIRCULAR"
+    },
+    {
+      "fase": "PH-PERF-DIR",
+      "actividad": "ACT-LIMPIEZA"
+    },
+    {
+      "fase": "PH-PERF-CORONA",
+      "actividad": "ACT-LOGGING"
+    },
+    {
+      "fase": "PH-PERF-COND",
+      "actividad": "ACT-SUPERFICIE"
+    },
+    {
+      "fase": "PH-PERF-CASING-PROD",
+      "actividad": "ACT-BAJAR-CASING"
+    },
+    {
+      "fase": "PH-PERF-CEM-PROD",
+      "actividad": "ACT-CEMENTAR"
+    },
+    {
+      "fase": "PH-PERF-CEM-PROD",
+      "actividad": "ACT-BAJAR-CASING"
+    },
+    {
+      "fase": "PH-PERF-WOC-PROD",
+      "actividad": "ACT-CEMENTAR"
+    },
+    {
+      "fase": "PH-PERF-DESMONTAJE",
+      "actividad": "ACT-DTM"
+    }
+  ],
+  "rel_actividad_operacion": [
+    {
+      "actividad": "ACT-DTM",
+      "operacion": "OP-DESMONTA"
+    },
+    {
+      "actividad": "ACT-DTM",
+      "operacion": "OP-TRANSPORTA"
+    },
+    {
+      "actividad": "ACT-DTM",
+      "operacion": "OP-MONTA"
+    },
+    {
+      "actividad": "ACT-SACAR-INST",
+      "operacion": "OP-VIAJE"
+    },
+    {
+      "actividad": "ACT-CIRCULAR",
+      "operacion": "OP-BOMB-INY-CIRC-DESP"
+    },
+    {
+      "actividad": "ACT-BAJAR-INST",
+      "operacion": "OP-BAJA-CSG-TBG-VB"
+    },
+    {
+      "actividad": "ACT-ENSAYO",
+      "operacion": "OP-PRUEBA-HERM"
+    },
+    {
+      "actividad": "ACT-ENSAYO",
+      "operacion": "OP-ENSAYA"
+    },
+    {
+      "actividad": "ACT-ESTIMULAR",
+      "operacion": "OP-ESTIMULA"
+    },
+    {
+      "actividad": "ACT-CEMENTAR",
+      "operacion": "OP-CEMENTA"
+    },
+    {
+      "actividad": "ACT-DRILL",
+      "operacion": "OP-ROTA"
+    },
+    {
+      "actividad": "ACT-DRILL",
+      "operacion": "OP-MIDE-OBSERVA"
+    },
+    {
+      "actividad": "ACT-DRILL",
+      "operacion": "OP-VIAJE"
+    },
+    {
+      "actividad": "ACT-BAJAR-CASING",
+      "operacion": "OP-BAJA-CSG-TBG-VB"
+    },
+    {
+      "actividad": "ACT-LOGGING",
+      "operacion": "OP-CABLE"
+    },
+    {
+      "actividad": "ACT-MANT-PREV",
+      "operacion": "OP-MANT-PREV"
+    },
+    {
+      "actividad": "ACT-MANT-CORR",
+      "operacion": "OP-EQ-PARADO"
+    },
+    {
+      "actividad": "ACT-SACAR-INST",
+      "operacion": "OP-SACA-CSG-TBG-VB"
+    },
+    {
+      "actividad": "ACT-SACAR-TUBING",
+      "operacion": "OP-SACA-CSG-TBG-VB"
+    },
+    {
+      "actividad": "ACT-SACAR-TUBING",
+      "operacion": "OP-VIAJE"
+    },
+    {
+      "actividad": "ACT-SACAR-BOMBA",
+      "operacion": "OP-SACA-CSG-TBG-VB"
+    },
+    {
+      "actividad": "ACT-SACAR-BOMBA",
+      "operacion": "OP-VIAJE"
+    },
+    {
+      "actividad": "ACT-BAJAR-INST",
+      "operacion": "OP-VIAJE"
+    },
+    {
+      "actividad": "ACT-BAJAR-TUBING",
+      "operacion": "OP-BAJA-CSG-TBG-VB"
+    },
+    {
+      "actividad": "ACT-BAJAR-TUBING",
+      "operacion": "OP-VIAJE"
+    },
+    {
+      "actividad": "ACT-BAJAR-BOMBA",
+      "operacion": "OP-BAJA-CSG-TBG-VB"
+    },
+    {
+      "actividad": "ACT-BAJAR-BOMBA",
+      "operacion": "OP-VIAJE"
+    },
+    {
+      "actividad": "ACT-BAJAR-CASING",
+      "operacion": "OP-VIAJE"
+    },
+    {
+      "actividad": "ACT-PUNZAR",
+      "operacion": "OP-PUNZA-NO-WL"
+    },
+    {
+      "actividad": "ACT-PUNZAR",
+      "operacion": "OP-CABLE"
+    },
+    {
+      "actividad": "ACT-ESTIMULAR",
+      "operacion": "OP-FLUIDOS"
+    },
+    {
+      "actividad": "ACT-ENSAYO",
+      "operacion": "OP-PRUEBA-ADM-CIRC"
+    },
+    {
+      "actividad": "ACT-HERMETICIDAD",
+      "operacion": "OP-PRUEBA-HERM"
+    },
+    {
+      "actividad": "ACT-ADMISION",
+      "operacion": "OP-PRUEBA-ADM-CIRC"
+    },
+    {
+      "actividad": "ACT-PESCA",
+      "operacion": "OP-VIAJE"
+    },
+    {
+      "actividad": "ACT-PESCA",
+      "operacion": "OP-MIDE-OBSERVA"
+    },
+    {
+      "actividad": "ACT-CIRCULAR",
+      "operacion": "OP-FLUIDOS"
+    },
+    {
+      "actividad": "ACT-LIMPIEZA",
+      "operacion": "OP-BOMB-INY-CIRC-DESP"
+    },
+    {
+      "actividad": "ACT-LIMPIEZA",
+      "operacion": "OP-FLUIDOS"
+    },
+    {
+      "actividad": "ACT-LOGGING",
+      "operacion": "OP-MIDE-OBSERVA"
+    },
+    {
+      "actividad": "ACT-SUPERFICIE",
+      "operacion": "OP-TRAB-SUP"
+    },
+    {
+      "actividad": "ACT-SUPERFICIE",
+      "operacion": "OP-ACOND-LOCACION"
+    },
+    {
+      "actividad": "ACT-MANT-PREV",
+      "operacion": "OP-EQ-PARADO"
+    },
+    {
+      "actividad": "ACT-SEGURIDAD",
+      "operacion": "OP-REUNION-SEG"
+    },
+    {
+      "actividad": "ACT-LECTURA",
+      "operacion": "OP-LECTURA-ALERTAS"
+    },
+    {
+      "actividad": "ACT-TAP-ABN",
+      "operacion": "OP-CEMENTA"
+    },
+    {
+      "actividad": "ACT-TAP-ABN",
+      "operacion": "OP-DESMONTA"
+    }
+  ],
+  "sample_plan_steps": [
+    {
+      "desde": "8:00",
+      "hasta": "9:00",
+      "fase": "PH-WO-DESM",
+      "actividad": "ACT-DTM",
+      "operacion": "OP-DESMONTA",
+      "tipo_tiempo": "TC-DTM",
+      "npt": "",
+      "descripcion": "Desmonta equipo y prepara herramientas"
+    },
+    {
+      "desde": "9:00",
+      "hasta": "11:30",
+      "fase": "PH-WO-SACAR-INST",
+      "actividad": "ACT-SACAR-TUBING",
+      "operacion": "OP-SACA-CSG-TBG-VB",
+      "tipo_tiempo": "TC-OP",
+      "npt": "",
+      "descripcion": "Saca instalación existente"
+    },
+    {
+      "desde": "11:30",
+      "hasta": "12:30",
+      "fase": "PH-WO-SACAR-INST",
+      "actividad": "ACT-CIRCULAR",
+      "operacion": "OP-BOMB-INY-CIRC-DESP",
+      "tipo_tiempo": "TC-OP",
+      "npt": "",
+      "descripcion": "Circula pozo previo a maniobra"
+    },
+    {
+      "desde": "12:30",
+      "hasta": "14:00",
+      "fase": "PH-WO-SACAR-INST",
+      "actividad": "ACT-SACAR-TUBING",
+      "operacion": "OP-SACA-CSG-TBG-VB",
+      "tipo_tiempo": "TC-OP",
+      "npt": "",
+      "descripcion": "Continúa sacando tubing"
+    },
+    {
+      "desde": "14:00",
+      "hasta": "16:00",
+      "fase": "PH-WO-PUNZAR",
+      "actividad": "ACT-PUNZAR",
+      "operacion": "OP-PUNZA-NO-WL",
+      "tipo_tiempo": "TC-OP",
+      "npt": "",
+      "descripcion": "Punza intervalo 1850-1860 m"
+    },
+    {
+      "desde": "16:00",
+      "hasta": "17:30",
+      "fase": "PH-WO-PUNZAR",
+      "actividad": "ACT-PUNZAR",
+      "operacion": "OP-CABLE",
+      "tipo_tiempo": "TC-LOG",
+      "npt": "NPT-TERCERO",
+      "descripcion": "Espera disponibilidad de unidad de cable"
+    },
+    {
+      "desde": "17:30",
+      "hasta": "20:00",
+      "fase": "PH-WO-ENSAYAR",
+      "actividad": "ACT-ENSAYO",
+      "operacion": "OP-PRUEBA-HERM",
+      "tipo_tiempo": "TC-OP",
+      "npt": "",
+      "descripcion": "Realiza prueba de hermeticidad"
+    }
+  ]
+}

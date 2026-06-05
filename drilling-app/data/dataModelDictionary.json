@@ -1,0 +1,170 @@
+{
+  "source_file": "C:\\Users\\bmcle\\Downloads\\Bases.xlsx",
+  "generated_at": "2026-06-04T23:07:05.428Z",
+  "groups": [
+    {
+      "group_code": "guia",
+      "group_name": "Guia del modelo",
+      "tables": [
+        {
+          "table_code": "guia_modelo",
+          "table_name": "Guia_Modelo",
+          "description": "Resumen funcional de las tablas y categorias del sistema.",
+          "columns": [
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {}
+          ]
+        }
+      ]
+    },
+    {
+      "group_code": "estructura",
+      "group_name": "Estructura del sistema",
+      "tables": [
+        {
+          "table_code": "well",
+          "table_name": "Estructura_Categoria_Pozo",
+          "description": "Campos base que identifican y clasifican un pozo.",
+          "columns": [
+            {
+              "campo": "id_pozo",
+              "tipo_sugerido": "Numérico / Autonumérico",
+              "obligatorio": "Si",
+              "ejemplo": 1
+            },
+            {
+              "campo": "codigo_pozo",
+              "tipo_sugerido": "Texto corto",
+              "obligatorio": "Si",
+              "ejemplo": "CH-1234"
+            },
+            {
+              "campo": "nombre_pozo",
+              "tipo_sugerido": "Texto",
+              "obligatorio": "Si",
+              "ejemplo": "CH-1234"
+            },
+            {
+              "campo": "yacimiento",
+              "tipo_sugerido": "Texto / Catálogo",
+              "obligatorio": "Si",
+              "ejemplo": "El Trébol"
+            },
+            {
+              "campo": "area",
+              "tipo_sugerido": "Texto / Catálogo",
+              "obligatorio": "No",
+              "ejemplo": "Zona Norte"
+            },
+            {
+              "campo": "locacion",
+              "tipo_sugerido": "Texto / Catálogo",
+              "obligatorio": "No",
+              "ejemplo": "LOC-045"
+            },
+            {
+              "campo": "bateria",
+              "tipo_sugerido": "Texto / Catálogo",
+              "obligatorio": "No",
+              "ejemplo": "BAT-12"
+            },
+            {
+              "campo": "tipo_pozo",
+              "tipo_sugerido": "Catálogo",
+              "obligatorio": "Si",
+              "ejemplo": "PRODUCTOR"
+            },
+            {
+              "campo": "estado_pozo",
+              "tipo_sugerido": "Catálogo",
+              "obligatorio": "Si",
+              "ejemplo": "EN_PRODUCCION"
+            },
+            {
+              "campo": "sistema_extraccion",
+              "tipo_sugerido": "Catálogo",
+              "obligatorio": "No",
+              "ejemplo": "BOMBEO_MECANICO"
+            },
+            {
+              "campo": "profundidad_md",
+              "tipo_sugerido": "Número decimal",
+              "obligatorio": "No",
+              "ejemplo": 2200
+            },
+            {
+              "campo": "profundidad_tvd",
+              "tipo_sugerido": "Número decimal",
+              "obligatorio": "No",
+              "ejemplo": 2100
+            },
+            {
+              "campo": "latitud",
+              "tipo_sugerido": "Número decimal",
+              "obligatorio": "No",
+              "ejemplo": -45.8642
+            },
+            {
+              "campo": "longitud",
+              "tipo_sugerido": "Número decimal",
+              "obligatorio": "No",
+              "ejemplo": -67.4821
+            },
+            {
+              "campo": "coordenada_x",
+              "tipo_sugerido": "Número decimal",
+              "obligatorio": "No",
+              "ejemplo": 2534100
+            },
+            {
+              "campo": "coordenada_y",
+              "tipo_sugerido": "Número decimal",
+              "obligatorio": "No",
+              "ejemplo": 4938200
+            },
+            {
+              "campo": "datum",
+              "tipo_sugerido": "Texto corto",
+              "obligatorio": "No",
+              "ejemplo": "WGS84"
+            },
+            {
+              "campo": "fecha_alta",
+              "tipo_sugerido": "Fecha",
+              "obligatorio": "No",
+              "ejemplo": "2026-06-04"
+            },
+            {
+              "campo": "observaciones",
+              "tipo_sugerido": "Texto largo",
+              "obligatorio": "No",
+              "ejemplo": "Pozo productor activo"
+            },
+            {
+              "campo": "activo",
+              "tipo_sugerido": "Sí/No",
+              "obligatorio": "Si",
+              "ejemplo": "Sí"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
